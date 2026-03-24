@@ -1,0 +1,15 @@
+/* src/main/resources/static/css/log-badge-overrides.css */
+/*
+ * 통합 로그(매매 + 입출금) 배지 색상 오버라이드 전용
+ * - 입금/출금 배지 색을 neon orange로 통일
+ * - 기존 styles.css / dashboard-analytics.css는 건드리지 않음
+ */
+
+:root {
+    --color-neon-orange: #FF6A00;
+}
+
+.trade-side-deposit,
+.trade-side-withdraw {
+    background-color: var(--color-neon-orange);
+}

@@ -1,0 +1,33 @@
+<!-- src/main/resources/static/access-denied.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>접근 차단 - Coin Auto Trader</title>
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 단일 CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="login-body">
+<div class="login-container">
+    <div class="login-card">
+        <h1 class="access-denied-title">이 사이트를 이용할 수 없습니다.</h1>
+        <p class="login-description">
+            사용하신 카카오 계정은 <br>
+            화이트리스트에 등록되어 있지 않습니다.<br>
+            권한이 필요한 경우 관리자의 승인을 요청해주세요.
+        </p>
+        <button class="btn btn-login login-kakao-btn" type="button"
+                onclick="window.location.href='/index.html'">
+            다시 로그인 화면으로
+        </button>
+    </div>
+</div>
+</body>
+</html>

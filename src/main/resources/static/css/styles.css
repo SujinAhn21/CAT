@@ -1,0 +1,799 @@
+/* =========================================================
+   공통 색상: 디자이너 팔레트 기반
+   ========================================================= */
+:root {
+    --color-bg: #020516;
+    --color-card: #252938;
+    --color-card-alt: #3B4151;
+    --color-blue: #4A69F5;
+    --color-green: #0AF211;
+    --color-gray: #9E9EA2;
+    --color-blue-soft: #4772FF;
+    --color-red-soft: #DF473D;
+    --color-red-strong: #AD0100;
+    --color-red-bright: #FF1600;
+
+    --color-text-main: #ffffff;
+    --color-text-muted: #9E9EA2;
+
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-pill: 999px;
+
+    --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.45);
+
+    --header-height: 64px;
+}
+
+/* 기본 리셋 */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+}
+
+/* 전체 레이아웃 */
+.app {
+    min-height: 100vh;
+}
+
+/* 헤더 영역 */
+.app-header {
+    height: var(--header-height);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.app-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 버튼 공통 */
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 8px 16px;
+    transition: background-color 0.18s ease,
+                transform 0.12s ease,
+                box-shadow 0.18s ease;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, #4A69F5, #4772FF);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(74, 105, 245, 0.45);
+}
+
+.btn-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(74, 105, 245, 0.55);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(74, 105, 245, 0.35);
+}
+
+/* 알림 아이콘 버튼 */
+.icon-button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.18s ease;
+}
+
+.icon-button.small {
+    width: 28px;
+    height: 28px;
+}
+
+.icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.icon-bell {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* 메인 콘텐츠영역 */
+.app-main {
+    padding: 24px 32px 40px;
+}
+
+/* 상단 패널 3분할 */
+.top-panels {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* 패널 공통 */
+.panel {
+    background-color: var(--color-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    padding: 18px 18px 16px;
+}
+
+.panel-header {
+    margin-bottom: 12px;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* 차트 패널 */
+.panel-chart .panel-body {
+    flex: 1;
+}
+
+.panel-chart canvas {
+    width: 100%;
+    height: 220px;
+}
+
+/* 패널 하단 요약 */
+.panel-footer {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(158, 158, 162, 0.3);
+    display: flex;
+    justify-content: center;
+}
+
+.panel-summary-text {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.panel-footer-loss .panel-summary-text {
+    color: var(--color-blue-soft);
+}
+
+.panel-footer-profit .panel-summary-text {
+    color: var(--color-green);
+}
+
+/* 캘린더 패널 */
+.panel-calendar {
+    background-color: #1f1f2b;
+}
+
+.calendar-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-placeholder {
+    width: 90%;
+    height: 90%;
+    border-radius: 12px;
+    border: 1px dashed rgba(158, 158, 162, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+/* 애니메이션 스트립 영역 (현재 미사용, 필요 시 재활용 가능) */
+.animation-strip {
+    margin-top: 24px;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animation-container {
+    width: 160px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.animation-container video {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 매매 로그 섹션 */
+.log-section {
+    margin-top: 32px;
+}
+
+.log-header {
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* 로그 리스트 */
+.trade-log {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 개별 로그 아이템 */
+.trade-log-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-card-alt);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+}
+
+/* 좌측 매수/매도 뱃지 */
+.trade-side {
+    min-width: 52px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    border-radius: var(--radius-pill);
+    padding: 5px 10px;
+    margin-right: 16px;
+}
+
+.trade-side-buy {
+    background-color: var(--color-green);
+}
+
+.trade-side-sell {
+    background-color: var(--color-red-bright);
+}
+
+/* 중앙 금액/수량 */
+.trade-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.trade-amount {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.trade-volume {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+/* 우측 시간/손익 */
+.trade-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    min-width: 96px;
+}
+
+.trade-time {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.trade-pnl {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.trade-pnl-positive {
+    color: var(--color-red-bright);
+}
+
+.trade-pnl-negative {
+    color: var(--color-blue-soft);
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+    .app-main {
+        padding: 16px;
+    }
+
+    .top-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .panel-chart canvas {
+        height: 200px;
+    }
+}
+
+@media (max-width: 599px) {
+    .app-header {
+        padding: 0 16px;
+    }
+
+    .trade-log-item {
+        align-items: flex-start;
+    }
+
+    .trade-meta {
+        align-items: flex-end;
+    }
+}
+
+/* =========================================
+   로그인 페이지 전용 스타일 (3배 확장 버전)
+   ========================================= */
+.login-body {
+    background-color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 728px;
+    padding: 40px;
+}
+
+.login-card {
+    background-color: var(--color-card);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    padding: 56px 48px 48px;
+    text-align: center;
+}
+
+.login-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.login-logo-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: contain;
+}
+
+.login-app-title {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.login-description {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.login-kakao-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0;
+}
+
+.login-help-text {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.access-denied-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* 색 기준 고정 */
+:root {
+    --color-bg-main: #020516;
+    --color-card: #252938;
+    --color-chart-blue: #4A69F5;
+    --color-chart-green: #0AF211;
+    --color-chart-red: #AD0100;
+}
+
+/* =========================================
+   알림 사이드바 레이아웃
+   ========================================= */
+/* 뒤 배경 어둡게 */
+.notification-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+    z-index: 40;
+}
+
+.notification-sidebar-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 오른쪽에서 슬라이드되는 패널 */
+.notification-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 340px;
+    max-width: 90vw;
+    height: 100vh;
+    background-color: var(--color-card);
+    box-shadow: -16px 0 40px rgba(0, 0, 0, 0.6);
+    padding: 24px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.22s ease;
+    z-index: 50;
+}
+
+.notification-sidebar.open {
+    transform: translateX(0);
+}
+
+/* 사이드바 안 텍스트 정리 */
+.notification-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.notification-sidebar-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.notification-sidebar-close {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.notification-sidebar-desc {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.notification-sidebar-footer {
+    margin-top: auto;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+/* 알림 사이드바 기본 레이아웃은 그대로 두고, 토글 줄만 정리 */
+.notification-toggle-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notification-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.notification-toggle-label {
+    font-size: 14px;
+    color: #f5f5f7;
+}
+
+/* iOS 스타일 토글 */
+.ios-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 26px;
+}
+
+.ios-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ios-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #e5e5ea;
+    border-radius: 999px;
+    transition: background-color 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
+}
+
+.ios-toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 2px;
+    top: 2px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+    transition: transform 0.18s ease;
+}
+
+/* 체크된 상태: UI디자인 팔레트의 연두색 사용 */
+.ios-toggle input:checked + .ios-toggle-slider {
+    background-color: #0AF211;
+}
+
+.ios-toggle input:checked + .ios-toggle-slider::before {
+    transform: translateX(18px);
+}
+
+/* 포커스/호버 약간 강조 */
+.ios-toggle input:focus + .ios-toggle-slider,
+.ios-toggle:hover .ios-toggle-slider {
+    box-shadow: 0 0 0 3px rgba(10,242,17,0.25);
+}
+
+/* =========================================
+   매매 로그 페이지네이션 (하단 페이지 번호)
+   ========================================= */
+.trade-pagination {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    user-select: none;
+}
+
+.trade-page-btn {
+    min-width: 26px;
+    padding: 4px 8px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    line-height: 1.4;
+    transition: background-color 0.16s ease,
+                color 0.16s ease,
+                transform 0.08s ease;
+}
+
+.trade-page-btn:hover:not(.active):not(.disabled) {
+    background-color: rgba(158, 158, 162, 0.18);
+    transform: translateY(-0.5px);
+}
+
+.trade-page-btn.active {
+    background-color: var(--color-green);
+    color: #020516;
+    font-weight: 600;
+}
+
+.trade-page-btn.disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* 패널 캘린더 색 */
+.panel-calendar {
+    background-color: #1f1f2b;
+}
+
+/* 캘린더 헤더(좌우 이동 버튼) */
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calendar-nav-btn {
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 16px;
+}
+
+/* 캘린더 그리드 */
+.calendar-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    font-size: 11px;
+}
+
+.calendar-day-name {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.calendar-day {
+    border: none;
+    background-color: #1f1f2b;
+    border-radius: 8px;
+    color: var(--color-text-main);
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.16s ease,
+                color 0.16s ease,
+                transform 0.08s ease;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.calendar-day:hover:not(.empty) {
+    background-color: var(--color-card-alt);
+    transform: translateY(-1px);
+}
+
+.calendar-day.is-today {
+    border: 1px solid var(--color-blue-soft);
+}
+
+.calendar-day.is-selected {
+    background-color: var(--color-green);
+    color: #020516;
+    font-weight: 600;
+}
+
+/* ===========================
+   알림 사이드바 레이아웃 (중복 정의)
+   =========================== */
+.notification-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+    z-index: 40;
+}
+
+.notification-sidebar-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 340px;
+    max-width: 90vw;
+    height: 100vh;
+    background-color: var(--color-card);
+    box-shadow: -16px 0 40px rgba(0, 0, 0, 0.6);
+    padding: 24px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.22s ease;
+    z-index: 50;
+}
+
+.notification-sidebar.open {
+    transform: translateX(0);
+}
+
+.notification-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.notification-sidebar-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.notification-sidebar-close {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.notification-sidebar-desc {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.notification-sidebar-footer {
+    margin-top: auto;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}

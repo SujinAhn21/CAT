@@ -1,0 +1,209 @@
+<!-- src/main/resources/static/dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Coin Auto Trader - Dashboard</title>
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 공통 스타일 -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- 브리핑보드 / 수익률 위젯 전용 스타일 -->
+    <link rel="stylesheet" href="/css/dashboard-analytics.css">
+    <!-- 통합로그 배지(입금/출금) 색상 오버라이드 전용 -->
+    <link rel="stylesheet" href="/css/log-badge-overrides.css">
+
+    <!-- 차트 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+
+    <!-- 상단 헤더 영역 -->
+    <header class="app-header">
+        <div class="header-left">
+            <img src="/img/logo-icon.png" alt="앱 로고" class="logo-icon">
+            <span class="app-title">Coin Auto Trader</span>
+        </div>
+
+        <div class="header-right">
+            <button id="logout-btn" class="btn btn-login" type="button">
+                로그아웃
+            </button>
+
+            <!-- 알림 아이콘 -->
+            <button class="icon-button" id="notification-btn" type="button" aria-label="알림 설정">
+                <img src="/img/bell-icon.png" alt="알림" class="icon-bell">
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 내용 -->
+    <main class="app-main">
+
+        <!-- 상단 3분할: 브리핑보드 / 캘린더 / 수익률 그래프 -->
+        <section class="top-panels">
+
+            <!-- 왼쪽: 브리핑보드 패널 -->
+            <article class="panel panel-briefing">
+                <header class="panel-header">
+                    <h2 class="panel-title">브리핑보드</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="briefing-board">
+                        <!-- 1) 원금(순투입 자본) -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">원금(순투입)</span>
+                            <span class="briefing-value" id="briefing-principal">0원</span>
+                        </div>
+                        <!-- 2) 현재 금액 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">현재 금액</span>
+                            <span class="briefing-value" id="briefing-current">0원</span>
+                        </div>
+                        <!-- 3) 누적 수익률 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">누적 수익률</span>
+                            <span class="briefing-value" id="briefing-rate">0%</span>
+                        </div>
+                        <!-- 4) 총 입금액 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">총 입금액</span>
+                            <span class="briefing-value" id="briefing-total-deposit">0원</span>
+                        </div>
+                        <!-- 5) 총 출금액 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">총 출금액</span>
+                            <span class="briefing-value" id="briefing-total-withdraw">0원</span>
+                        </div>
+                        <!-- 5-1) 선택 날짜 입금액 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">오늘 입금액</span>
+                            <span class="briefing-value" id="briefing-day-deposit">0원</span>
+                        </div>
+                        <!-- 5-2) 선택 날짜 출금액 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">오늘 출금액</span>
+                            <span class="briefing-value" id="briefing-day-withdraw">0원</span>
+                        </div>
+                        <!-- 6) 누적 실현 손익 -->
+                        <div class="briefing-row">
+                            <span class="briefing-label">누적 실현 손익</span>
+                            <span class="briefing-value" id="briefing-total-pnl">0원</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 가운데 캘린더 패널 -->
+            <article class="panel panel-calendar">
+                <header class="panel-header calendar-header">
+                    <button type="button" class="calendar-nav-btn" id="calendar-prev-btn">〈</button>
+                    <h2 class="panel-title" id="calendarTitle"></h2>
+                    <button type="button" class="calendar-nav-btn" id="calendar-next-btn">〉</button>
+                </header>
+                <div class="panel-body calendar-body">
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- JS에서 렌더링 -->
+                    </div>
+                </div>
+            </article>
+
+            <!-- 오른쪽: 수익률 그래프 패널 -->
+            <article class="panel panel-chart">
+                <header class="panel-header">
+                    <h2 class="panel-title">수익률</h2>
+                </header>
+                <div class="panel-body">
+                    <canvas id="profitChart"></canvas>
+                </div>
+                <footer class="panel-footer panel-footer-profit">
+                    <span id="profitSummary" class="panel-summary-text">0%</span>
+                </footer>
+            </article>
+
+        </section>
+
+        <!-- 매매 로그 리스트 (통합 로그로 사용: 매수/매도/입금/출금) -->
+        <section class="log-section">
+            <header class="log-header">
+                <h2 class="section-title">매매 로그</h2>
+            </header>
+
+            <ul class="trade-log" id="trade-log-list">
+                <!-- JS에서 동적으로 채움 -->
+            </ul>
+
+            <div class="trade-pagination" id="trade-pagination">
+                <!-- JS에서 동적으로 채움 -->
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- 알림 설정 사이드바 -->
+<div class="notification-sidebar-backdrop" id="notification-backdrop"></div>
+
+<aside class="notification-sidebar" id="notification-sidebar">
+    <div class="notification-sidebar-header">
+        <h2 class="notification-sidebar-title">알림 설정</h2>
+        <button type="button"
+                class="notification-sidebar-close"
+                id="notification-close-btn">
+            ×
+        </button>
+    </div>
+
+    <p class="notification-sidebar-desc">
+        받고 싶은 알림만 선택해서 켜 둘 수 있습니다.
+    </p>
+
+    <div class="notification-toggle-list">
+
+        <div class="notification-toggle-row">
+            <span class="notification-toggle-label">매수 알림</span>
+            <label class="ios-toggle" data-key="buy">
+                <input type="checkbox" id="notify-buy">
+                <span class="ios-toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="notification-toggle-row">
+            <span class="notification-toggle-label">매도 알림</span>
+            <label class="ios-toggle" data-key="sell">
+                <input type="checkbox" id="notify-sell">
+                <span class="ios-toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="notification-toggle-row">
+            <span class="notification-toggle-label">오류 알림</span>
+            <label class="ios-toggle" data-key="error">
+                <input type="checkbox" id="notify-error">
+                <span class="ios-toggle-slider"></span>
+            </label>
+        </div>
+
+    </div>
+
+    <p class="notification-sidebar-footer">
+        설정은 즉시 저장되며, 다음 매매·오류 이벤트부터 적용됩니다.
+    </p>
+</aside>
+
+<!-- 공통 JS (인증/토큰 유틸) -->
+<script src="/js/auth-util.js"></script>
+<!-- 공통 JS (대시보드 전체 동작) -->
+<script src="/js/app.js"></script>
+<!-- 브리핑보드 + 수익률 그래프 전용 JS -->
+<script src="/js/dashboard-analytics.js"></script>
+<!-- FCM 설정 모듈 (웹 푸시 등록 + 포그라운드 알림) -->
+<script type="module" src="/js/fcm-setup.js"></script>
+</body>
+</html>

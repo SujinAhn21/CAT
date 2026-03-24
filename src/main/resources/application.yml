@@ -1,0 +1,90 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/coin_auto_trader?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:  #이거 일단 none.
+      ddl-auto: none # 얘를 update로 두면 DB 오류 조지게 남. 네이밍 오류 절대 방지
+      naming: # 명시적으로 카멜 지정. 지금 카멜 쓰고 있음.
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.time_zone: Asia/Seoul
+
+
+
+  sql:
+    init:
+      mode: never             # 내장 schema.sql/data.sql 강제 실행 방지
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_CLIENT_ID}
+            client-secret: ${KAKAO_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - account_email # 필요하면
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+jackson:
+  time-zone: Asia/Seoul
+
+reminder:
+  fcm:
+    enabled: true
+    useGoogleCredentialsPath: false # json 파일을 classpath에서 직접 읽을 거면 false, 로컬 환경변수에서 읽을거면 true
+
+app:
+  scheduler:
+    enabled: false
+  oauth2:
+    redirect-uri: #http://localhost:63342/Frontend/index.html
+    logout-redirect-uri: http://localhost:8080/index.html  # Kakao 콘솔에도 동일하게 등록
+  security:
+    allowed-kakao-ids: ${ALLOWED_KAKAO_IDS:} # '내가 정한' n명에게 접근 허용을 위해 리스트 문자열로 구현.
+                      # ${ALLOWED_KAKAO_ID:0} 이고 내거만 등록해두면 나만 접근 가능. 이렇게 두면 .env의 ALLOWED_KAKAO_ID만 세팅해도 바로 1인 화이트리스트가 적용됨.
+
+
+springdoc:
+  #packages-to-scan: com.example. .......
+  paths-to-match: /api/**,/v3/api-docs/**
+  remove-broken-reference-definitions: true
+  swagger-ui:
+    path: /swagger-ui
+    display-request-duration: true
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.zaxxer.hikari.HikariConfig: DEBUG   # Hikari가 실제 jdbcUrl/username 출력
+    com.zaxxer.hikari: INFO
+    org.springframework.jdbc.core.JdbcTemplate: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.http.converter.json: DEBUG
+
+
+jwt:
+  secret: ${JWT_SECRET}
+  # 2. token-validity-in-seconds: 토큰 유효 시간 (*일단은* 1시간)
+  token-validity-in-seconds: 3600

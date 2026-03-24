@@ -1,0 +1,49 @@
+/* src/main/resources/static/css/dashboard-analytics.css */
+
+/* ============================
+   브리핑보드 / 수익률 위젯 전용
+   (기본 카드 레이아웃, 색상 등은 styles.css 재사용)
+   ============================ */
+
+.panel-briefing {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 브리핑보드 전체 컨테이너 */
+.briefing-board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+/* 한 줄 (레이블 + 값) */
+.briefing-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+/* 왼쪽 라벨 (원금 / 현재 금액 / 수익률) */
+.briefing-label {
+    color: var(--color-text-muted);
+}
+
+/* 오른쪽 값 텍스트 */
+.briefing-value {
+    font-weight: 500;
+}
+
+/* 작은 화면에서도 여백이 너무 좁아지지 않게 보정 */
+@media (max-width: 1024px) {
+    .briefing-board {
+        align-items: flex-start;
+    }
+
+    .briefing-row {
+        width: 100%;
+    }
+}

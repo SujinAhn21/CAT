@@ -1,0 +1,80 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.8'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'bitcoin auto-trading service that makes users to know what is going on with their money.'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springBootAdminVersion', "3.5.0")
+}
+
+dependencies {
+	// Swagger UI (Boot 3.x 호환)
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13' //swagger ui 테스트, 버전 2.6.0 말고 올려야 맞음.
+
+	// Firebase Admin
+	implementation 'com.google.firebase:firebase-admin:9.1.1' // firebase-admin 의존성 추가
+
+	// Spring starters
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' //MySQL 드라이버 의존성
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-web-services'
+
+	// Spring Boot Amdin: 보통 client만
+	implementation 'de.codecentric:spring-boot-admin-starter-client'
+	//implementation 'de.codecentric:spring-boot-admin-starter-server'
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // API
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5' // 구현체
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	// util
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2' // .env 때문에
+
+	compileOnly 'org.projectlombok:lombok'
+
+	runtimeOnly 'com.mysql:mysql-connector-j' //MySQL 드라이버 의존성
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
