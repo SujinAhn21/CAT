@@ -36,6 +36,13 @@ out/
 ### VS Code ###
 .vscode/
 
-### info ###
+
+
+### info(env, firebase, Google credentials) ###
+# env
 .env
+# firebase
 src/main/resources/firebase/serviceAccountKey.json
+src/main/resources/firebase/*.json
+# Google credentials
+src/main/resources/static/firebase-messaging-sw.js  
